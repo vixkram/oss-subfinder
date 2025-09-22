@@ -100,8 +100,8 @@ make build && make run
 ```
 
 **That's it!** 🎉 Your subfinder is now running at:
-- **Backend API**: http://localhost:8080
-- **API Documentation**: http://localhost:8080/docs
+- **Backend API**: http://localhost:9000
+- **API Documentation**: http://localhost:9000/docs
 
 > **Use different ports?** Update the `ports` section in `docker-compose.yml` (e.g., `9080:8000`) before running `make run`. In managed hosting you can rely on your platform’s port mapping instead.
 
@@ -116,7 +116,7 @@ docker-compose --profile frontend up frontend-dev
 
 **Development URLs**:
 - **Frontend (Hot Reload)**: http://localhost:5173
-- **Backend**: http://localhost:8080
+- **Backend**: http://localhost:9000
 
 ---
 
@@ -176,13 +176,13 @@ docker-compose --env-file .env up
 
 ```bash
 # Start a real-time scan
-curl -N "http://localhost:8080/api/search?domain=example.com&include_bruteforce=true"
+curl -N "http://localhost:9000/api/search?domain=example.com&include_bruteforce=true"
 
 # Get scan history
-curl "http://localhost:8080/api/history/example.com"
+curl "http://localhost:9000/api/history/example.com"
 
 # Probe specific host
-curl "http://localhost:8080/api/status/www.example.com"
+curl "http://localhost:9000/api/status/www.example.com"
 ```
 
 **📖 Detailed API documentation**: [`docs/api.md`](docs/api.md)

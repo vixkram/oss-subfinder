@@ -15,7 +15,7 @@ services:
       - ./scripts:/app/scripts
       - massdns-bin:/opt/massdns
     ports:
-      - "8080:8000"
+      - "9000:8000"
     depends_on:
       - postgres
       - massdns-builder
