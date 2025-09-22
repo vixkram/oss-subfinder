@@ -103,6 +103,8 @@ make build && make run
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 
+> **Port conflicts?** Override the host ports on the fly: `BACKEND_HOST_PORT=18000 POSTGRES_HOST_PORT=15432 make run`. In managed hosting (Coolify, Render, Fly.io) set `BACKEND_HOST_PORT=0` and `POSTGRES_HOST_PORT=0` in the service environment so Docker assigns free ports automatically.
+
 ### 🎮 Development Mode
 
 For active frontend development:
