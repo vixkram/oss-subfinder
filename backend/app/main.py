@@ -204,13 +204,16 @@ async def root(request: Request) -> JSONResponse:
     settings = get_settings()
     docs_link = request.url_for("swagger_ui_html") if app.docs_url else None
     redoc_link = request.url_for("redoc_html") if app.redoc_url else None
+    # When the FastAPI app is mounted behind a proxy, url_for returns a Starlette URL
+    docs_url = str(docs_link) if docs_link else None
+    redoc_url = str(redoc_link) if redoc_link else None
     payload = {
         "name": app.title,
         "version": app.version,
         "status": "ok",
         "links": {
-            "docs": docs_link,
-            "redoc": redoc_link,
+            "docs": docs_url,
+            "redoc": redoc_url,
             "api_reference": "https://github.com/vixkram/oss-subfinder/tree/main/docs/api.md",
             "source": "https://github.com/vixkram/oss-subfinder",
             "demo": "https://oss-subfinder.vikk.dev/",
