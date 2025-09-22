@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    environment:
+      POSTGRES_DSN: postgresql://subfinder:subfinder@postgres:5432/subfinder
+      MASSDNS_BIN: /opt/massdns/massdns
+      MASSDNS_RESOLVERS_FILE: /app/app/resolvers.txt
+    volumes:
+      - ./backend:/app
+      - ./scripts:/app/scripts
+      - massdns-bin:/opt/massdns
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - massdns-builder
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: subfinder
+      POSTGRES_PASSWORD: subfinder
+      POSTGRES_DB: subfinder
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  massdns-builder:
+    build: ./massdns
+    volumes:
+      - massdns-bin:/opt/massdns
+    command: >
+      sh -c "cp /usr/local/bin/massdns /opt/massdns/massdns && exec sleep infinity"
+
+  frontend-dev:
+    image: node:20-alpine
+    working_dir: /workspace
+    volumes:
+      - ./frontend:/workspace
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - VITE_BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    profiles:
+      - frontend
+
+volumes:
+  massdns-bin:
+  postgres-data:

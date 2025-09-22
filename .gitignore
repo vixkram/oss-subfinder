@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+.venv/
+venv/
+dist/
+build/
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.cache/
+.DS_Store
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/.vite/
+frontend/dist/
+pnpm-lock.yaml
+package-lock.json
+
+# IDEs
+.idea/
+.vscode/
+
+# log
+backend.log
