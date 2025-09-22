@@ -15,14 +15,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-COPY backend/requirements.txt /tmp/requirements.txt
+COPY backend/requirements.txt .
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r /tmp/requirements.txt
+    pip install --no-cache-dir -r requirements.txt
 
-COPY backend /app
-COPY backend/start.sh /app/start.sh
-
-RUN chmod +x /app/start.sh
+COPY backend .
 
 WORKDIR /app
 
@@ -30,4 +27,4 @@ ENV PATH="/app/scripts:${PATH}"
 
 EXPOSE 8000
 
-CMD ["/app/start.sh"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
