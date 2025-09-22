@@ -2,7 +2,12 @@
 
 > **Production-ready subdomain reconnaissance for security professionals**
 
-Open-source subdomain discovery platform combining passive intelligence gathering with real-time DNS enumeration. Built with FastAPI streaming, async DNS resolution, and a modern React interface for instant deployment and scalable reconnaissance workflows. Explore a live deployment at [oss-subfinder.vikk.dev](https://oss-subfinder.vikk.dev/).
+Open-source subdomain discovery platform combining passive intelligence gathering with real-time DNS enumeration. Built with FastAPI streaming, async DNS resolution, and a modern React interface for instant deployment and scalable reconnaissance workflows.
+
+**Live Demo**
+
+- UI: [https://oss-subfinder.vikk.dev](https://oss-subfinder.vikk.dev)
+- API: [https://api-subfinder.vikk.dev](https://api-subfinder.vikk.dev)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -112,6 +117,7 @@ make build && make run
 - If your platform expects a start command, use `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`. Substitute the port your provider injects via environment variables.
 - For manual deployments without Docker, run the API from the backend directory: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000`.
 - When building the frontend separately, set `VITE_BACKEND_URL` to the externally reachable backend root **before** running `npm run build` (e.g. `VITE_BACKEND_URL=https://api.example.com`). That value is baked into the static bundle and powers all SSE and REST requests.
+- Use distinct public domains for the frontend and backend (e.g. `https://oss-subfinder.vikk.dev` and `https://api-subfinder.vikk.dev`) so the static bundle can call the API without an additional reverse proxy.
 
 ### 🎮 Development Mode
 
