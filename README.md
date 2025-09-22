@@ -111,6 +111,7 @@ make build && make run
 - No extra volume mounts or `PYTHONPATH` overrides are required; the container entrypoint handles it.
 - If your platform expects a start command, use `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`. Substitute the port your provider injects via environment variables.
 - For manual deployments without Docker, run the API from the backend directory: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000`.
+- When building the frontend separately, set `VITE_BACKEND_URL` to the externally reachable backend root **before** running `npm run build` (e.g. `VITE_BACKEND_URL=https://api.example.com`). That value is baked into the static bundle and powers all SSE and REST requests.
 
 ### 🎮 Development Mode
 

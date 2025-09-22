@@ -23,6 +23,15 @@ const DONATION_WALLETS = [
   },
 ];
 
+const API_BASE_URL = (import.meta.env.VITE_BACKEND_URL ?? "").replace(/\/$/, "");
+
+const resolveApiUrl = (path) => {
+  if (!path.startsWith("/")) {
+    return API_BASE_URL ? `${API_BASE_URL}/${path}` : path;
+  }
+  return API_BASE_URL ? `${API_BASE_URL}${path}` : path;
+};
+
 const GitHubIcon = ({ className = "", ...props }) => (
   <svg
     aria-hidden="true"
@@ -585,7 +594,7 @@ export default function SubfinderUI() {
 
   const fetchRecent = useCallback(async () => {
     try {
-      const res = await fetch(`/api/recent?limit=12`);
+      const res = await fetch(resolveApiUrl(`/api/recent?limit=12`));
       if (!res.ok) {
         throw new Error(`Recent scans request failed (${res.status})`);
       }
@@ -611,7 +620,7 @@ export default function SubfinderUI() {
       return;
     }
     try {
-      const res = await fetch(`/api/history?domain=${encodeURIComponent(value)}`);
+      const res = await fetch(resolveApiUrl(`/api/history?domain=${encodeURIComponent(value)}`));
       if (!res.ok) {
         throw new Error(`History request failed (${res.status})`);
       }
@@ -698,7 +707,7 @@ export default function SubfinderUI() {
       setLoading(true);
       setLastUpdated(null);
 
-      const url = `/api/search?domain=${encodeURIComponent(targetValue)}${refresh ? "&refresh=1" : ""}`;
+      const url = resolveApiUrl(`/api/search?domain=${encodeURIComponent(targetValue)}${refresh ? "&refresh=1" : ""}`);
       const es = new EventSource(url);
       eventSourceRef.current = es;
 
@@ -776,7 +785,7 @@ export default function SubfinderUI() {
     }
     setWhoisState({ loading: true, data: null, error: null });
     try {
-      const res = await fetch(`/api/whois?domain=${encodeURIComponent(target)}`);
+      const res = await fetch(resolveApiUrl(`/api/whois?domain=${encodeURIComponent(target)}`));
       if (!res.ok) {
         throw new Error(`WHOIS request failed (${res.status})`);
       }
