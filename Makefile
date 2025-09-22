@@ -8,3 +8,6 @@ run:
 
 test:
 	docker-compose run --rm backend pytest
+
+test-local:
+	python -m pytest backend/tests
