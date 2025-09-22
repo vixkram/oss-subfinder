@@ -2,7 +2,7 @@
 set -euo pipefail
 
 BIN="${MASSDNS_BIN:-massdns}"
-RESOLVERS="${MASSDNS_RESOLVERS_FILE:-/app/app/resolvers.txt}"
+RESOLVERS="${MASSDNS_RESOLVERS_FILE:-/app/backend/app/resolvers.txt}"
 
 if ! command -v "$BIN" >/dev/null 2>&1; then
   echo "massdns binary not found: $BIN" >&2

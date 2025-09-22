@@ -105,6 +105,13 @@ make build && make run
 
 > **Use different ports?** Update the `ports` section in `docker-compose.yml` (e.g., `9080:8000`) before running `make run`. In managed hosting you can rely on your platform’s port mapping instead.
 
+### ☁️ Managed Platforms (Coolify, Render, etc.)
+
+- Point the build context at the repository root and reuse `backend/Dockerfile`—it now lays out the backend at `/app/backend`, so `uvicorn app.main:app` always resolves the `app` package.
+- No extra volume mounts or `PYTHONPATH` overrides are required; the container entrypoint handles it.
+- If your platform expects a start command, use `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`. Substitute the port your provider injects via environment variables.
+- For manual deployments without Docker, run the API from the backend directory: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000`.
+
 ### 🎮 Development Mode
 
 For active frontend development:

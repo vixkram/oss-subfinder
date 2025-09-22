@@ -8,11 +8,8 @@ services:
     environment:
       POSTGRES_DSN: postgresql://subfinder:subfinder@postgres:5432/subfinder
       MASSDNS_BIN: /opt/massdns/massdns
-      MASSDNS_RESOLVERS_FILE: /app/app/resolvers.txt
-      PYTHONPATH: /app
+      MASSDNS_RESOLVERS_FILE: /app/backend/app/resolvers.txt
     volumes:
-    - ./backend:/app
-    - ./scripts:/app/scripts
     - massdns-bin:/opt/massdns
     ports:
     - 9000:8000
