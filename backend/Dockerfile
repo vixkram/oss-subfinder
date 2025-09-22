@@ -20,6 +20,8 @@ RUN pip install --upgrade pip && \
 
 COPY backend /app
 
+WORKDIR /app
+
 ENV PATH="/app/scripts:${PATH}"
 
 EXPOSE 8000
